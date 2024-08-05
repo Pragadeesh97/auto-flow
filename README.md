@@ -5,3 +5,7 @@ Node JS
 React JS
 Webhooks
 Prisma
+
+Learnings
+Transaction Outbox pattern
+Kafka

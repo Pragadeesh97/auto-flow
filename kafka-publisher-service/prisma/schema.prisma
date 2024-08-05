@@ -19,25 +19,22 @@ model User {
   email String
   password String
   planType String
-  workflows Workflow[]
 }
 
 model Workflow {
   id Int @id @default(autoincrement())
-  name String
-  isActive Boolean @default(true)
+  triggerId Int @unique
   createdBy String
   createdAt String
   trigger Trigger?
   actions Action[]
   workflowrun WorkflowRun[]
-  user User @relation(fields: [createdBy], references: [id])
 }
 
 model Trigger {
   id Int @id @default(autoincrement())
   workflowId Int @unique
-  meta Json
+  name String
   availableTriggerId Int
   type AvailableTrigger @relation(fields: [availableTriggerId], references: [id])
   workflow Workflow @relation(fields: [workflowId], references: [id])
@@ -48,7 +45,6 @@ model Action {
   workflowId Int
   availableActionId Int
   meta Json
-  order Int
   workflow Workflow @relation(fields: [workflowId], references: [id])
   type AvailableAction @relation(fields: [availableActionId], references: [id])
 }
@@ -81,8 +77,3 @@ model WorkflowRunOutput {
   creationTime DateTime
   workflow WorkflowRun @relation(fields: [workflowRunId], references: [id])
 }
-
-
-
-
-

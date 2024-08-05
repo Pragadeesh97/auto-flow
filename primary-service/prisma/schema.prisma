@@ -25,13 +25,14 @@ model User {
 model Workflow {
   id Int @id @default(autoincrement())
   name String
-  isActive Boolean @default(true)
   createdBy String
   createdAt String
+  isActive Boolean
   trigger Trigger?
   actions Action[]
   workflowrun WorkflowRun[]
   user User @relation(fields: [createdBy], references: [id])
+
 }
 
 model Trigger {
