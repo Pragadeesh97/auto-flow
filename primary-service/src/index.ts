@@ -1,10 +1,12 @@
 import express from "express";
 import { userRouter } from "./router/user";
 import { workFlowRouter } from "./router/workflow";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/user", userRouter);
 app.use("/workflow", workFlowRouter);
@@ -17,5 +19,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Backend is up and running");
+  console.log("Backend is up and running on port 3000");
 });

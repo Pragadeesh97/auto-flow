@@ -1,6 +1,8 @@
+import axios from "axios";
 import { AppBar } from "./Appbar";
 import { InputField } from "./InputField";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 type FormInputs = {
   email: string;
@@ -36,7 +38,22 @@ const SignInForm: React.FC<SignInFormProps> = ({ onSubmit, register }) => (
 
 const SignIn: React.FC = () => {
   const { handleSubmit, register } = useForm<FormInputs>();
-
+  const navigate = useNavigate();
+  async function onSignIn(data: FormInputs) {
+    try {
+      const result = await axios.post(
+        "http://localhost:3000/user/signin/",
+        data
+      );
+      if (result.status == 200) {
+        localStorage.setItem("token", result.data.token);
+        navigate("/workflows");
+      }
+    } catch (e) {
+      console.log("Error while siging in");
+      alert("Invalid credentials");
+    }
+  }
   return (
     <>
       <AppBar showSignIn={false} showSignUp={true} />
@@ -57,7 +74,7 @@ const SignIn: React.FC = () => {
           <div className="flex col-span-1 items-center pl-20">
             <div className="border-[0.5px] rounded-md border-gray-400 h-[350px] w-[350px] p-5">
               <SignInForm
-                onSubmit={handleSubmit((data) => console.log(data))}
+                onSubmit={handleSubmit((data) => onSignIn(data))}
                 register={register}
               />
             </div>

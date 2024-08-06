@@ -94,7 +94,7 @@ exports.userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 
                 message: "Invalid Input",
             });
         }
-        const isMatch = bcrypt_1.default.compare(parsedBody.data.password, user.password);
+        const isMatch = yield bcrypt_1.default.compare(parsedBody.data.password, user.password);
         if (!isMatch) {
             return res.status(400).json({
                 message: "Invalid Input",

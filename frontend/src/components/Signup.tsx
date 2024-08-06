@@ -2,6 +2,8 @@ import React from "react";
 import { AppBar } from "./Appbar";
 import { useForm } from "react-hook-form";
 import { InputField } from "./InputField";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 type FormInputs = {
   email: string;
@@ -45,8 +47,12 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, register }) => (
 
 const Signup: React.FC = () => {
   const { handleSubmit, register } = useForm<FormInputs>();
-  function onSignUp(data: FormInputs) {
+  const navigate = useNavigate();
+  async function onSignUp(data: FormInputs) {
     console.log(data);
+    const result = await axios.post("http://localhost:3000/user/signup/", data);
+    console.log(result);
+    navigate("/signin");
   }
   return (
     <>
@@ -78,5 +84,4 @@ const Signup: React.FC = () => {
     </>
   );
 };
-
 export default Signup;

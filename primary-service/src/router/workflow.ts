@@ -23,9 +23,29 @@ workFlowRouter.get("/", AuthMiddleware, async (req, res) => {
       },
     },
   });
-  return res.status(400).json({
+  return res.status(200).json({
     workflows,
   });
+});
+
+workFlowRouter.get("/action", AuthMiddleware, async (req, res) => {
+  try {
+    const actions = await prismaClient.availableAction.findMany();
+    console.log("Available actions are", actions);
+    return res.status(200).json({ actions });
+  } catch (e) {
+    console.log("error while fetching availble actions");
+  }
+});
+
+workFlowRouter.get("/trigger", AuthMiddleware, async (req, res) => {
+  try {
+    const triggers = await prismaClient.availableTrigger.findMany();
+    console.log("Available triggers are", triggers);
+    return res.status(200).json({ triggers });
+  } catch (e) {
+    console.log("error while fetching availble triggers");
+  }
 });
 
 workFlowRouter.post("/", AuthMiddleware, async (req, res) => {

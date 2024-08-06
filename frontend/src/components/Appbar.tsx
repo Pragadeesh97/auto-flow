@@ -6,7 +6,7 @@ interface AppBarType {
 export function AppBar({ showSignIn, showSignUp }: AppBarType) {
   const navigate = useNavigate();
   return (
-    <div className=" bg-[#191919] text-[white] flex justify-between pl-2 pr-2 items-center h-14">
+    <div className="bg-[#191919] text-[white] flex justify-between pl-3 pr-3 items-center h-14">
       <div
         className="font-medium cursor-pointer"
         onClick={() => {

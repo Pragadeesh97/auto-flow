@@ -82,7 +82,10 @@ userRouter.post("/signin", async (req, res) => {
         message: "Invalid Input",
       });
     }
-    const isMatch = bcrypt.compare(parsedBody.data.password, user.password);
+    const isMatch = await bcrypt.compare(
+      parsedBody.data.password,
+      user.password
+    );
     if (!isMatch) {
       return res.status(400).json({
         message: "Invalid Input",
