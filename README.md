@@ -72,6 +72,7 @@ Some screenshots of the app
 <img src="image-6.png" alt="High-Level Architecture" width="600"/>
 <img src="image-7.png" alt="High-Level Architecture" width="600"/>
 <img src="image-8.png" alt="High-Level Architecture" width="600"/>
+<img src="image-9.png" alt="High-Level Architecture" width="600"/>
 
 ## Learnings
 
