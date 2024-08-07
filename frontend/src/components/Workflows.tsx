@@ -55,7 +55,7 @@ export default function Workflows() {
             },
           }
         );
-        console.log(workflowResult);
+        console.log("all workflows", workflowResult);
         setWorkflows(workflowResult.data?.workflows);
       } catch (e) {
         console.log("Error on fetching workflow data...", e);
@@ -78,6 +78,12 @@ export default function Workflows() {
               <WorkflowDisplay
                 key={workflow.id}
                 name={workflow.name}
+                description={
+                  workflow.trigger.type.id == 1
+                    ? "Webhook url: " +
+                      `http://localhost:3010/hook/catch/${workflow.createdBy}/${workflow.id}`
+                    : ""
+                }
               ></WorkflowDisplay>
             );
           })
@@ -92,14 +98,27 @@ export default function Workflows() {
   );
 }
 
-function WorkflowDisplay({ key, name }: { key: number; name: any }) {
+function WorkflowDisplay({
+  key,
+  name,
+  description,
+}: {
+  key: number;
+  name: string;
+  description: string;
+}) {
   return (
-    <div
-      key={key}
-      className="flex border border-gray-500 p-2 rounded-md mt-2 hover:bg-slate-300 hover:text-black m-2 h-16 items-center pl-4 hover: cursor-pointer"
-    >
-      {name}
-    </div>
+    <>
+      <div
+        key={key}
+        className="border border-gray-500 p-2 rounded-md mt-2 hover:bg-slate-300 hover:text-black m-2 h-20 items-center pl-4 hover: cursor-pointer"
+      >
+        <div className="flex">{name}</div>
+        <div className="flex text-sm items-center mt-2 text-gray-500">
+          {description}
+        </div>
+      </div>
+    </>
   );
 }
 

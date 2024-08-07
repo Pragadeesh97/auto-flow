@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  planType String
+  workflows Workflow[]
+}
+
+model Workflow {
+  id Int @id @default(autoincrement())
+  name String
+  isActive Boolean @default(true)
+  createdBy String
+  createdAt String
+  trigger Trigger?
+  actions Action[]
+  workflowrun WorkflowRun[]
+  user User @relation(fields: [createdBy], references: [id])
+}
+
+model Trigger {
+  id Int @id @default(autoincrement())
+  workflowId Int @unique
+  meta Json
+  availableTriggerId Int
+  type AvailableTrigger @relation(fields: [availableTriggerId], references: [id])
+  workflow Workflow @relation(fields: [workflowId], references: [id])
+}
+
+model Action {
+  id Int @id @default(autoincrement())
+  workflowId Int
+  availableActionId Int
+  meta Json
+  order Int
+  workflow Workflow @relation(fields: [workflowId], references: [id])
+  type AvailableAction @relation(fields: [availableActionId], references: [id])
+}
+
+model AvailableAction{
+  id Int @id @default(autoincrement())
+  name String
+  meta Json
+  action Action[] // One to many relationship with Action table
+}
+
+model AvailableTrigger{
+  id Int @id @default(autoincrement())
+  name String
+  trigger Trigger[]
+}
+
+model WorkflowRun{
+  id Int @id @default(autoincrement())
+  workflowId Int
+  creationTime DateTime
+  meta Json
+  workflow Workflow @relation(fields: [workflowId], references: [id])
+  workflowRunOutPut WorkflowRunOutput?
+}
+
+model WorkflowRunOutput {
+  id Int @id @default(autoincrement())
+  workflowRunId Int @unique
+  creationTime DateTime
+  workflow WorkflowRun @relation(fields: [workflowRunId], references: [id])
+}
+
+
+
+
+

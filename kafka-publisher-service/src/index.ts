@@ -11,31 +11,36 @@ const kafka = new Kafka({
   brokers: ["localhost:9092"],
 });
 
-//create kafka producer
-const producer = kafka.producer();
-
 async function publish() {
+  //create kafka producer
+  const producer = kafka.producer({ allowAutoTopicCreation: false });
+  await producer.connect();
   console.log("Kafka publisher running...");
 
   while (1) {
     // pull all the records to be published
     const pendingData = await prismaClient.workflowRunOutput.findMany();
+    console.log("pendingData", pendingData);
     // bulk publish all the data in kafka
+    if (pendingData.length < 0) {
+      continue;
+    }
     producer.send({
       topic: TOPIC_NAME,
       messages: pendingData.map((e) => {
-        return { value: JSON.stringify({ workflowId: e.id }) };
+        return { value: JSON.stringify({ workflowRunId: e.id }) };
       }),
     });
     // delete the published data
-    await prismaClient.workflowRunOutput.deleteMany({
+    const deleted = await prismaClient.workflowRunOutput.deleteMany({
       where: {
         id: {
           in: pendingData.map((ele) => ele.id),
         },
       },
     });
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    console.log("deleted workflow outputs", deleted);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
   }
 }
 

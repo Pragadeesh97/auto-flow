@@ -224,7 +224,11 @@ function ConfigurerModal({
   const [selectedActionType, setSelectedActionType] = useState();
   const [selectedTriggerType, setSelectedTriggerType] = useState();
   const [step, setStep] = useState(1);
-  const [actionData, setActionData] = useImmer({ to: "", body: "" });
+  const [actionData, setActionData] = useImmer({
+    to: "",
+    body: "",
+    subject: "",
+  });
   return (
     <Modal
       isOpen={isModalOpen}
@@ -238,7 +242,7 @@ function ConfigurerModal({
           : "Configure Action"
       }
     >
-      <div className="flex flex-col justify-between h-[200px] w-[300px] pt-5">
+      <div className="flex flex-col justify-between h-fit w-[300px] pt-5">
         <div className="">
           {selectedItem?.type == "trigger"
             ? availableTriggers.map((trigger: any) => {
@@ -281,7 +285,8 @@ function ConfigurerModal({
                     <div className="mt-2">
                       <input
                         id="to_email"
-                        placeholder="email parser"
+                        placeholder="To email template"
+                        className="p-1"
                         onChange={(e) => {
                           setActionData((data) => {
                             data.to = e.target.value;
@@ -289,14 +294,29 @@ function ConfigurerModal({
                         }}
                       />
                     </div>
-                    <div className="mt-3">
+                    <div className="mt-3 p-1">
+                      <label htmlFor="subject_email">Subject</label>
+                    </div>
+                    <div>
+                      <input
+                        className="mt-2 p-1"
+                        id="subject_email"
+                        placeholder="Subject template"
+                        onChange={(e) => {
+                          setActionData((data) => {
+                            data.subject = e.target.value;
+                          });
+                        }}
+                      />
+                    </div>
+                    <div className="mt-3 p-1">
                       <label htmlFor="body_email">Body</label>
                     </div>
                     <div>
                       <input
-                        className="mt-2"
-                        id="id_email"
-                        placeholder="body parser"
+                        className="mt-2 p-1"
+                        id="body_email"
+                        placeholder="Body template"
                         onChange={(e) => {
                           setActionData((data) => {
                             data.body = e.target.value;
