@@ -27,7 +27,7 @@ This project is a workflow automation tool that creates a trigger and performs a
 
 ## High-Level Architecture
 
-<img src="image-1.png" alt="High-Level Architecture" width="600"/>
+![High-Level Architecture](image-1.png)
 
 This system follows an event-driven architecture. Below is an overview of all the parts in the high-level architecture:
 
