@@ -27,7 +27,7 @@ This project is a workflow automation tool that creates a trigger and performs a
 
 ## High-Level Architecture
 
-![High-Level Architecture](image-1.png)
+<img src="image-1.png" alt="High-Level Architecture" width="600"/>
 
 This system follows an event-driven architecture. Below is an overview of all the parts in the high-level architecture:
 
@@ -61,17 +61,17 @@ There can be two topics in Kafka: `free_users` and `paid_users`. Two consumer gr
 
 - **Consumer Group for Paid Users**: This can be a Kubernetes pod with Horizontal Pod Autoscaling (HPA) enabled, scaling based on the number of requests and CPU usage. More replicas of workers can be deployed to ensure a better user experience for paid users.
 
-![Kafka and Kubernetes Architecture](image.png)
+<img src="image.png" alt="High-Level Architecture" width="600"/>
 
 Some screenshots of the app
 
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
+<img src="image-2.png" alt="High-Level Architecture" width="600"/>
+<img src="image-3.png" alt="High-Level Architecture" width="600"/>
+<img src="image-4.png" alt="High-Level Architecture" width="600"/>
+<img src="image-5.png" alt="High-Level Architecture" width="600"/>
+<img src="image-6.png" alt="High-Level Architecture" width="600"/>
+<img src="image-7.png" alt="High-Level Architecture" width="600"/>
+<img src="image-8.png" alt="High-Level Architecture" width="600"/>
 
 ## Learnings
 
