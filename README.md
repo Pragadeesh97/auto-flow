@@ -74,6 +74,8 @@ Some screenshots of the app
 <img src="image-8.png" alt="High-Level Architecture" width="600"/>
 <img src="image-9.png" alt="High-Level Architecture" width="600"/>
 
+Demo video recording - https://loom.com/share/7d9ebd057f98493c903ab750f8b4f084
+
 ## Learnings
 
 - Transactional Outbox Pattern
