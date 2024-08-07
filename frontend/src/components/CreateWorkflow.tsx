@@ -328,7 +328,7 @@ function ConfigurerModal({
                 );
               })}
         </div>
-        <div className="flex  flex-row-reverse">
+        <div className="flex  flex-row-reverse mt-5">
           <button
             className="bg-[#7C3AED] p-2 px-4 rounded-3xl text-white font-medium hover:bg-[#562EB6]"
             onClick={() => {
